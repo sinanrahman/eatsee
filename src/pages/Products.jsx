@@ -88,7 +88,7 @@ const Products = () => {
                             We cater to large events, weddings, and shop supplies. Contact us for bulk pricing and specialized menu items.
                         </p>
                         <div className="flex justify-center gap-4">
-                            <a href="tel:9567496164" className="btn-primary">Call Instead</a>
+                            <a href="tel:9562496164" className="btn-primary">Call Instead</a>
                             <button className="btn-outline">Order List</button>
                         </div>
                     </div>

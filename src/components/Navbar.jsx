@@ -145,7 +145,7 @@ const Navbar = () => {
                         </div>
 
                         <div className="mt-auto items-center justify-center flex gap-6 text-gray-500">
-                            <span className="text-sm">9567496164</span>
+                            <span className="text-sm">9562496164</span>
                             <span className="text-sm">Omassery, Kerala</span>
                         </div>
                     </motion.div>

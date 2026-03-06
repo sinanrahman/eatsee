@@ -41,5 +41,5 @@ A premium, production-ready website for **Eatsee Foods**, a traditional food man
 
 ## Contact Info
 - **Location**: Omassery, Kozhikode, Kerala
-- **Phone**: +91 9567496164
+- **Phone**: +91 9562496164
 - **Tagline**: Continuing the legacy of homemade taste.

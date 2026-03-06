@@ -35,9 +35,9 @@ const Contact = () => {
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                                 {[
-                                    { icon: Phone, title: "Call Us", value: "+91 9567496164", sub: "Mon-Sat 6am-8pm" },
-                                    { icon: MessageCircle, title: "WhatsApp", value: "+91 9567496164", sub: "Fast response" },
-                                    { icon: Mail, title: "Email Us", value: "info@eatsee.com", sub: "General inquiries" },
+                                    { icon: Phone, title: "Call Us", value: "+91 9562496164", sub: "Mon-Sat 6am-8pm" },
+                                    { icon: MessageCircle, title: "WhatsApp", value: "+91 9562496164", sub: "Fast response" },
+                                    { icon: Mail, title: "Email Us", value: "eatseefoods@gmail.com", sub: "General inquiries" },
                                     { icon: MapPin, title: "Location", value: "Omassery, Kerala", sub: "Kozhikode district" },
                                 ].map((item, i) => (
                                     <div key={i} className="bg-white dark:bg-zinc-900 p-8 rounded-[2rem] border border-gray-100 dark:border-zinc-800 shadow-sm">
