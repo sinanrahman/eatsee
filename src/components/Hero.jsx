@@ -1,96 +1,161 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronDown, ArrowRight, MousePointer2 } from 'lucide-react';
+import { ArrowRight, MoveUpRight } from 'lucide-react';
 import gsap from 'gsap';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const floatingImages = [
+    { url: "/image/pathiri.jpeg", x: -25, y: -20, z: 100, rotate: -15, size: 300 },
+    { url: "/image/idiyappam.jpeg", x: 25, y: 15, z: 150, rotate: 10, size: 250 },
+    { url: "/image/vellappam.jpeg", x: -20, y: 25, z: 80, rotate: 5, size: 280 },
+    { url: "/image/chappathy.jpg", x: 30, y: -25, z: 120, rotate: -10, size: 220 },
+];
 
 const Hero = () => {
     const containerRef = useRef(null);
+    const stageRef = useRef(null);
 
     useLayoutEffect(() => {
         let ctx = gsap.context(() => {
-            const tl = gsap.timeline();
-
-            tl.from(".hero-reveal", {
+            // Initial Entrance
+            gsap.from(".hero-reveal", {
                 y: 100,
                 opacity: 0,
-                duration: 1.2,
-                stagger: 0.15,
+                duration: 1.5,
+                stagger: 0.1,
                 ease: "power4.out"
-            })
-                .from(".hero-sep", {
-                    width: 0,
-                    duration: 1,
-                    ease: "power2.inOut"
-                }, "-=0.8")
-                .from(".hero-img-box", {
-                    scale: 0.9,
-                    opacity: 0,
+            });
+
+            gsap.from(".floating-item", {
+                scale: 0,
+                opacity: 0,
+                duration: 2,
+                stagger: 0.2,
+                ease: "expo.out",
+                delay: 0.5
+            });
+
+            // Mouse Move Parallax
+            const handleMouseMove = (e) => {
+                const { clientX, clientY } = e;
+                const xPos = (clientX / window.innerWidth - 0.5) * 2;
+                const yPos = (clientY / window.innerHeight - 0.5) * 2;
+
+                gsap.to(stageRef.current, {
+                    rotateY: xPos * 15,
+                    rotateX: -yPos * 15,
+                    duration: 1.2,
+                    ease: "power2.out"
+                });
+
+                gsap.to(".floating-item", {
+                    x: (i) => xPos * (50 + i * 20),
+                    y: (i) => yPos * (50 + i * 20),
                     duration: 1.5,
-                    ease: "expo.out"
-                }, "-=1");
+                    ease: "power3.out",
+                    stagger: 0.02
+                });
+            };
+
+            window.addEventListener('mousemove', handleMouseMove);
+            return () => window.removeEventListener('mousemove', handleMouseMove);
         }, containerRef);
         return () => ctx.revert();
     }, []);
 
     return (
-        <section ref={containerRef} className="relative min-h-screen flex flex-col justify-center items-center bg-white dark:bg-black pt-20 overflow-hidden px-6">
-            {/* Decorative center light */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vh] bg-primary/5 dark:bg-primary/10 rounded-full blur-[120px] -z-0 pointer-events-none"></div>
-
-            <div className="max-w-7xl mx-auto w-full text-center relative z-10 space-y-10">
-                <div className="flex flex-col items-center space-y-4">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="px-4 py-1.5 border border-primary/20 bg-primary/5 rounded-md text-primary font-mono text-[10px] tracking-widest uppercase hero-reveal"
+        <section ref={containerRef} className="relative min-h-[110vh] flex flex-col justify-center items-center bg-black pt-20 overflow-hidden px-6 select-none">
+            {/* 3D STAGE */}
+            <div
+                ref={stageRef}
+                className="absolute inset-0 z-0 pointer-events-none"
+                style={{ perspective: "1500px", transformStyle: "preserve-3d" }}
+            >
+                {floatingImages.map((img, i) => (
+                    <div
+                        key={i}
+                        className="floating-item absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+                        style={{
+                            left: `${50 + img.x}%`,
+                            top: `${50 + img.y}%`,
+                            transform: `translateZ(${img.z}px) rotate(${img.rotate}deg)`,
+                            width: `${img.size}px`,
+                            height: `${img.size}px`
+                        }}
                     >
-                        Nadhira's Authentic Recipes // 2026 Edition
+                        <div className="relative w-full h-full group">
+                            <div className="absolute inset-0 bg-primary/20 rounded-full blur-[60px] group-hover:bg-primary/40 transition-colors duration-700"></div>
+                            <img
+                                src={img.url}
+                                alt="Food Item"
+                                className="w-full h-full object-cover rounded-full border-[8px] border-zinc-900 shadow-2xl transition-transform duration-700 group-hover:scale-110"
+                            />
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {/* CONTENT LAYER */}
+            <div className="max-w-7xl mx-auto w-full text-center relative z-10 space-y-12">
+                <div className="flex flex-col items-center space-y-6">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="px-5 py-2 border border-zinc-800 bg-zinc-900/50 backdrop-blur-md rounded-full text-primary font-mono text-[10px] tracking-[0.4em] uppercase hero-reveal"
+                    >
+                        Authentic Malabar Heritage // Est. 1994
                     </motion.div>
 
-                    <h1 className="text-7xl md:text-[16rem] lg:text-[20rem] font-playfair font-black text-white leading-[0.75] tracking-tighter">
-                        <span className="hero-reveal block">Eatsee.</span>
-                        <div className="flex items-center justify-center gap-6 hero-reveal">
-                            <span className="text-primary italic font-serif">Foods</span>
+                    <h1 className="text-8xl md:text-[18rem] lg:text-[24rem] font-playfair font-black text-white leading-[0.7] tracking-tighter relative">
+                        <span className="hero-reveal block mix-blend-difference">EATSEE.</span>
+                        <div className="flex items-center justify-center gap-8 hero-reveal mt-4 md:-mt-8">
+                            <span className="text-primary italic font-serif text-5xl md:text-9xl drop-shadow-[0_0_30px_rgba(21,128,61,0.5)]">Foods</span>
                         </div>
                     </h1>
                 </div>
 
-                <div className="max-w-2xl mx-auto hero-reveal">
-                    <p className="text-xl md:text-2xl text-gray-500 dark:text-zinc-400 font-light leading-relaxed">
-                        Continuing the legacy of homemade taste. Authentic traditional flavors, crafted with hygiene and love in Omassery.
+                <div className="max-w-xl mx-auto hero-reveal">
+                    <p className="text-lg md:text-xl text-zinc-400 font-mono tracking-tight leading-relaxed uppercase opacity-60">
+                        Crafting the future of traditional taste through immersive culinary excellence.
                     </p>
                 </div>
 
-                <div className="hero-reveal flex flex-col md:flex-row items-center justify-center gap-4 pt-10">
-                    <Link to="/products" className="group px-12 py-5 bg-white text-black font-bold rounded-full transition-all hover:scale-105 active:scale-95 shadow-2xl flex items-center gap-3">
-                        Shop Collection <span className="font-mono text-xs opacity-50">[01-07]</span>
+                <div className="hero-reveal flex flex-col md:flex-row items-center justify-center gap-6 pt-10">
+                    <Link
+                        to="/products"
+                        className="group px-14 py-6 bg-white text-black font-bold rounded-full transition-all hover:scale-105 active:scale-95 shadow-[0_0_50px_rgba(255,255,255,0.2)] flex items-center gap-4"
+                    >
+                        EXPLORE_COLLECTION <MoveUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                     </Link>
 
-                    <Link to="/order" className="px-12 py-5 border border-zinc-800 text-white font-mono text-xs tracking-widest rounded-full hover:bg-zinc-900 transition-all flex items-center gap-3">
-                        Express Delivery <ArrowRight size={14} />
+                    <Link
+                        to="/order"
+                        className="px-14 py-6 border border-zinc-800 text-zinc-400 font-mono text-xs tracking-[0.3em] rounded-full hover:bg-zinc-900 hover:text-white transition-all"
+                    >
+                        [ VIEW_SERVICES ]
                     </Link>
                 </div>
+            </div>
 
-                {/* Floating Badges Visualization */}
-                <div className="hero-img-box absolute -bottom-40 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] opacity-20 pointer-events-none">
-                    <img src="/image/logo.png" alt="Background decoration" className="w-full h-full object-contain blur-md" />
+            {/* BOTTOM DECORATION */}
+            <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center gap-6 hero-reveal">
+                <div className="font-mono text-[9px] text-zinc-600 uppercase tracking-[0.5em] animate-pulse">
+                    Initiating Sensory Experience
                 </div>
+                <div className="w-[1px] h-32 bg-gradient-to-b from-primary via-zinc-800 to-transparent"></div>
             </div>
 
-            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 hero-reveal">
-                <div className="font-mono text-[10px] text-zinc-500 uppercase tracking-[0.3em]">
-                    Scroll to Taste
-                </div>
-                <div className="w-[1px] h-20 bg-gradient-to-b from-white to-transparent opacity-20"></div>
+            {/* SIDE METADATA */}
+            <div className="absolute top-1/2 left-12 -translate-y-1/2 -rotate-90 origin-left hidden xl:flex items-center gap-8 text-[9px] font-mono uppercase tracking-[0.4em] text-zinc-700">
+                <span className="text-primary">01.</span> PRESERVING_TRADITION
+                <div className="w-12 h-[1px] bg-zinc-800"></div>
+                HOMEMADE_QUALITY
             </div>
 
-            {/* Side info labels */}
-            <div className="absolute top-1/2 left-10 -translate-y-1/2 -rotate-90 origin-left hidden lg:block text-[10px] font-mono uppercase tracking-[0.3em] text-zinc-600">
-                01. Authentic — Homemade — Organic
-            </div>
-            <div className="absolute top-1/2 right-10 -translate-y-1/2 rotate-90 origin-right hidden lg:block text-[10px] font-mono uppercase tracking-[0.3em] text-zinc-600">
-                02. Omassery — Kozhikode — Kerala
+            <div className="absolute top-1/2 right-12 -translate-y-1/2 rotate-90 origin-right hidden xl:flex items-center gap-8 text-[9px] font-mono uppercase tracking-[0.4em] text-zinc-700">
+                <span className="text-primary">02.</span> OMASSARY_FACILITY
+                <div className="w-12 h-[1px] bg-zinc-800"></div>
+                READY_FOR_DISPATCH
             </div>
         </section>
     );
