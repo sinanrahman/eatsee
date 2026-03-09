@@ -13,7 +13,8 @@ const foods = [
         description: "Our signature Pathiri is crafted from the finest rice flour, steam-cooked to perfection. It's paper-thin, incredibly soft, and captures the true essence of Malabar heritage.",
         image: "/image/pathiri.jpeg",
         details: ["100% Rice Flour", "No Preservatives", "Handmade Feel"],
-        themeColor: "#15803D"
+        themeColor: "#15803D",
+        glow: "rgba(21, 128, 61, 0.15)"
     },
     {
         id: 2,
@@ -22,7 +23,8 @@ const foods = [
         description: "Delicate strands of rice dough, perfectly steamed to create a light and airy texture. A healthy breakfast staple that pairs beautifully with spicy curries or coconut milk.",
         image: "/image/idiyappam.jpeg",
         details: ["Traditional Steam", "Easy to Digest", "Pure Ingredients"],
-        themeColor: "#15803D"
+        themeColor: "#15803D",
+        glow: "rgba(34, 197, 94, 0.15)"
     },
     {
         id: 3,
@@ -31,7 +33,8 @@ const foods = [
         description: "The classic Kerala Appam with a thick, fluffy center and crispy, lacy edges. Fermented traditionally for that subtle tangy flavor that melts in your mouth.",
         image: "/image/vellappam.jpeg",
         details: ["Natural Fermentation", "Crispy Edges", "Fluffy Center"],
-        themeColor: "#15803D"
+        themeColor: "#15803D",
+        glow: "rgba(22, 101, 52, 0.15)"
     },
     {
         id: 4,
@@ -40,7 +43,8 @@ const foods = [
         description: "Soft, puffed Chappathis made from premium whole wheat. We ensure they stay fresh and soft for hours, providing a nutritious and homemade dining experience.",
         image: "/image/chappathy.jpg",
         details: ["Premium Wheat", "Zero Oil Option", "Long-lasting Softness"],
-        themeColor: "#15803D"
+        themeColor: "#15803D",
+        glow: "rgba(21, 128, 61, 0.15)"
     }
 ];
 
@@ -124,15 +128,19 @@ const FoodScrollShowcase = () => {
             <div className="max-w-[1600px] mx-auto h-screen flex flex-col md:flex-row items-center relative px-6 md:px-20">
 
                 {/* CENTER IMAGE STAGE */}
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[220px] h-[220px] md:w-[450px] md:h-[450px] z-20">
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[600px] md:h-[600px] z-20">
                     {foods.map((food, i) => (
                         <div key={food.id} className="food-img-container absolute inset-0 will-change-transform will-change-opacity">
-                            <div className="relative w-full h-full p-2 md:p-4">
-                                <div className="absolute inset-0 bg-primary/10 rounded-full blur-2xl transform scale-110"></div>
+                            <div className="relative w-full h-full p-4 md:p-8">
+                                {/* Glow Effect */}
+                                <div
+                                    className="absolute inset-0 rounded-full blur-[100px] transform scale-150 transition-colors duration-1000"
+                                    style={{ backgroundColor: food.glow }}
+                                ></div>
                                 <img
                                     src={food.image}
                                     alt={food.name}
-                                    className="w-full h-full object-cover rounded-full shadow-2xl border-4 md:border-8 border-white dark:border-zinc-900 relative z-10"
+                                    className="w-full h-full object-cover rounded-full shadow-[0_0_50px_rgba(0,0,0,0.5)] border-[12px] border-zinc-900/50 relative z-10"
                                 />
                             </div>
                         </div>
@@ -149,13 +157,13 @@ const FoodScrollShowcase = () => {
                                 key={food.id}
                                 className={`panel-left-${i} absolute inset-0 flex flex-col justify-end md:justify-center items-center md:items-start text-center md:text-left pb-32 md:pb-0 will-change-transform will-change-opacity ${i === 0 ? 'opacity-100' : 'opacity-0'}`}
                             >
-                                <span className="text-primary font-bold uppercase tracking-[0.2em] text-[10px] md:text-sm mb-2 md:mb-4">
-                                    Signature Item 0{i + 1}
+                                <span className="text-primary font-mono font-bold uppercase tracking-[0.3em] text-[10px] md:text-xs mb-4 md:mb-6">
+                                    Product 0{i + 1} // Signature
                                 </span>
-                                <h3 className="text-4xl md:text-8xl lg:text-9xl font-playfair font-black text-gray-900 dark:text-white leading-tight">
+                                <h3 className="text-6xl md:text-[10rem] lg:text-[14rem] font-playfair font-black text-gray-900 dark:text-white leading-[0.8] tracking-tighter">
                                     {food.name}
                                 </h3>
-                                <p className="text-sm md:text-2xl italic text-gray-400 dark:text-zinc-600 font-playfair mt-1 md:mt-2">
+                                <p className="text-sm md:text-3xl italic text-gray-400 dark:text-zinc-500 font-playfair mt-4 md:mt-6">
                                     {food.tagline}
                                 </p>
                             </div>
@@ -169,22 +177,24 @@ const FoodScrollShowcase = () => {
                                 key={food.id}
                                 className={`panel-right-${i} absolute inset-0 md:w-3/4 flex flex-col justify-start md:justify-center items-center md:items-end text-center md:text-right pt-32 md:pt-0 will-change-transform will-change-opacity ${i === 0 ? 'opacity-100' : 'opacity-0'}`}
                             >
-                                <div className="space-y-4 md:space-y-6 px-4 md:px-0">
-                                    <p className="text-xs md:text-lg lg:text-xl text-gray-500 dark:text-gray-400 leading-relaxed max-w-xs md:max-w-md ml-auto font-light">
+                                <div className="space-y-6 md:space-y-10 px-4 md:px-0">
+                                    <p className="text-sm md:text-xl lg:text-2xl text-gray-500 dark:text-gray-400 leading-relaxed max-w-xs md:max-w-md ml-auto font-light">
                                         {food.description}
                                     </p>
 
-                                    <div className="flex flex-wrap justify-center md:justify-end gap-2 md:gap-3">
+                                    <div className="flex flex-wrap justify-center md:justify-end gap-3 md:gap-4">
                                         {food.details.map((detail, idx) => (
-                                            <span key={idx} className="px-3 py-1 bg-zinc-50 dark:bg-zinc-900/50 text-[8px] md:text-xs text-gray-400 rounded-full border border-gray-100 dark:border-zinc-800">
+                                            <span key={idx} className="px-4 py-1.5 bg-zinc-900 text-[10px] md:text-xs text-gray-400 font-mono rounded-full border border-zinc-800">
                                                 {detail}
                                             </span>
                                         ))}
                                     </div>
 
-                                    <div className="pt-4 md:pt-8 flex justify-center md:justify-end">
-                                        <button className="px-6 py-3 md:px-10 md:py-4 bg-primary text-white text-xs md:text-base font-bold rounded-xl md:rounded-2xl transition-all active:scale-95 shadow-lg">
-                                            Explore {food.name}
+                                    <div className="pt-8 md:pt-12 flex justify-center md:justify-end">
+                                        <button className="group relative px-12 py-5 bg-white text-black font-bold rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-2xl">
+                                            <span className="relative z-10 flex items-center gap-3">
+                                                Add to Bag <span className="text-primary">/ Explore</span>
+                                            </span>
                                         </button>
                                     </div>
                                 </div>

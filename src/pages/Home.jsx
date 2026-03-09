@@ -11,7 +11,7 @@ const homeProducts = [
     { id: 1, name: "Pathiri", image: "/image/pathiri.jpeg", description: "Soft and thin rice pancakes." },
     { id: 2, name: "Idiyappam", image: "/image/idiyappam.jpeg", description: "Classic steamed rice string hoppers." },
     { id: 3, name: "Vellappam", image: "/image/vellappam.jpeg", description: "Lacy coconut rice pancakes." },
-    { id: 4, name: "Chappathi", image: "/image/chappathy.jpeg", description: "Healthy whole wheat flatbread." },
+    { id: 4, name: "Chappathi", image: "/image/chappathy.jpg", description: "Healthy whole wheat flatbread." },
 ];
 
 const Home = () => {
@@ -34,9 +34,10 @@ const Home = () => {
                         </div>
                     </div>
                     <div className="space-y-6">
-                        <span className="text-primary font-bold uppercase tracking-widest text-sm">A Taste of Tradition</span>
-                        <h2 className="text-4xl md:text-5xl font-playfair font-bold dark:text-white leading-tight">
-                            Continuing the Legacy of <br /> Our Parents
+                        <span className="text-primary font-mono font-bold uppercase tracking-[0.3em] text-xs">Section 01 // Heritage</span>
+                        <h2 className="text-5xl md:text-8xl font-playfair font-black dark:text-white leading-[0.8] tracking-tighter">
+                            Continuing the <br />
+                            <span className="text-zinc-400 italic">Legacy</span>
                         </h2>
                         <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
                             At Eatsee Foods, we don't just manufacture food; we preserve memories. What started in our home kitchen decades ago has now become a mission to share authentic, hygienic, and traditional Kerala flavors with every household.
@@ -58,7 +59,9 @@ const Home = () => {
                             ))}
                         </div>
                         <div className="pt-8">
-                            <Link to="/about" className="btn-outline">Our Full Story</Link>
+                            <Link to="/about" className="group px-8 py-3 dark:border-zinc-800 border-zinc-200 border-2 rounded-full font-mono text-xs tracking-widest hover:bg-zinc-900 transition-all text-white">
+                                EXPLORE_FULL_STORY
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -68,12 +71,12 @@ const Home = () => {
             <section className="section-padding bg-white dark:bg-dark-bg">
                 <div className="max-w-7xl mx-auto space-y-12">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-                        <div className="space-y-4">
-                            <span className="text-primary font-bold uppercase tracking-widest text-sm">Customer Favorites</span>
-                            <h2 className="text-4xl md:text-5xl font-playfair font-bold dark:text-white">Our Popular Items</h2>
+                        <div className="space-y-2">
+                            <span className="text-primary font-mono font-bold uppercase tracking-[0.3em] text-xs">Section 02 // Selection</span>
+                            <h2 className="text-5xl md:text-8xl font-playfair font-black dark:text-white leading-[0.8] tracking-tighter">Signature Items.</h2>
                         </div>
-                        <Link to="/products" className="text-primary font-bold flex items-center gap-2 hover:translate-x-2 transition-transform">
-                            Explore All Products <ArrowRight size={20} />
+                        <Link to="/products" className="text-primary font-mono text-xs tracking-widest flex items-center gap-2 hover:translate-x-2 transition-transform">
+                            VIEW_ALL_COLLECTION <ArrowRight size={14} />
                         </Link>
                     </div>
 

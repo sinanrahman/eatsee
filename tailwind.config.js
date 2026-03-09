@@ -22,6 +22,7 @@ export default {
       fontFamily: {
         outfit: ['Outfit', 'sans-serif'],
         playfair: ['Playfair Display', 'serif'],
+        mono: ['Space Mono', 'monospace'],
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out forwards',

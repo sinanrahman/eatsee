@@ -56,9 +56,9 @@ const Navbar = () => {
                             <Link
                                 key={link.path}
                                 to={link.path}
-                                className={`text-sm font-medium transition-colors hover:text-primary ${location.pathname === link.path
-                                    ? 'text-primary underline underline-offset-4 decoration-2'
-                                    : 'text-gray-600 dark:text-gray-300'
+                                className={`text-[10px] uppercase font-mono tracking-widest transition-colors hover:text-primary ${location.pathname === link.path
+                                    ? 'text-primary'
+                                    : 'text-gray-600 dark:text-gray-400'
                                     }`}
                             >
                                 {link.name}
@@ -70,9 +70,9 @@ const Navbar = () => {
                         <DarkModeToggle />
                         <Link
                             to="/order"
-                            className="bg-primary text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-primary-dark transition-all transform hover:scale-105 active:scale-95"
+                            className="bg-white text-black px-6 py-2 rounded-full text-[10px] font-mono font-bold tracking-widest hover:bg-gray-200 transition-all border border-zinc-200 dark:border-zinc-800"
                         >
-                            Order Now
+                            ORDER_NOW
                         </Link>
                     </div>
                 </div>
