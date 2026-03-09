@@ -3,9 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-    html {
-        scroll-behavior: smooth;
-    }
+    html {}
 
     body {
         @apply font-outfit transition-colors duration-300;

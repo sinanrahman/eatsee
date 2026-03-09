@@ -79,7 +79,7 @@ const Hero = () => {
 
                 {/* Floating Badges Visualization */}
                 <div className="hero-img-box absolute -bottom-40 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] opacity-20 pointer-events-none">
-                    <img src="/image/logo.jpeg" alt="Background decoration" className="w-full h-full object-contain blur-md" />
+                    <img src="/image/logo.png" alt="Background decoration" className="w-full h-full object-contain blur-md" />
                 </div>
             </div>
 

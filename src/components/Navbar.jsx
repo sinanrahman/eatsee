@@ -42,7 +42,7 @@ const Navbar = () => {
                 {/* Logo */}
                 <Link to="/" className="flex items-center gap-2 group">
                     <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary">
-                        <img src="/image/logo.jpeg" alt="Eatsee Foods Logo" className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
+                        <img src="/image/logo.png" alt="Eatsee Foods Logo" className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
                     </div>
                     <span className={`text-xl font-bold tracking-tight ${scrolled ? 'text-gray-900 dark:text-white' : 'text-gray-900 dark:text-white'}`}>
                         EATSEE <span className="text-primary">FOODS</span>
@@ -102,7 +102,7 @@ const Navbar = () => {
                         <div className="flex justify-between items-center mb-12">
                             <Link to="/" className="flex items-center gap-2">
                                 <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary">
-                                    <img src="/image/logo.jpeg" alt="Logo" className="w-full h-full object-cover" />
+                                    <img src="/image/logo.png" alt="Logo" className="w-full h-full object-cover" />
                                 </div>
                                 <span className="text-xl font-bold dark:text-white">EATSEE <span className="text-primary">FOODS</span></span>
                             </Link>

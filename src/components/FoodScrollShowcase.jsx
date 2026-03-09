@@ -50,12 +50,12 @@ const FoodScrollShowcase = () => {
 
     useLayoutEffect(() => {
         let ctx = gsap.context(() => {
-            const panels = gsap.utils.toArray('.food-panel');
             const images = gsap.utils.toArray('.food-img-container');
 
             // Fix the images in the center
             images.forEach((img, i) => {
-                if (i > 0) gsap.set(img, { opacity: 0, scale: 0.8, rotate: -10 });
+                if (i > 0) gsap.set(img, { opacity: 0, scale: 0.8, rotate: -10, force3D: true });
+                else gsap.set(img, { force3D: true });
             });
 
             const tl = gsap.timeline({
@@ -64,22 +64,24 @@ const FoodScrollShowcase = () => {
                     start: "top top",
                     end: `+=${foods.length * 80}%`, // Reduced scroll length for less intensity
                     pin: true,
-                    scrub: 1.5, // Smoother follow
-                    anticipatePin: 1
+                    scrub: 0.8, // Faster, more responsive follow
+                    anticipatePin: 1,
+                    fastScrollEnd: true,
+                    preventOverlays: true
                 }
             });
 
             foods.forEach((_, i) => {
                 if (i < foods.length - 1) {
                     // Transition Out
-                    tl.to(`.panel-left-${i}`, { y: -50, opacity: 0, duration: 1 }, `step-${i}`)
-                        .to(`.panel-right-${i}`, { y: 50, opacity: 0, duration: 1 }, `step-${i}`)
-                        .to(images[i], { opacity: 0, scale: 1.1, rotate: 5, duration: 1 }, `step-${i}`)
+                    tl.to(`.panel-left-${i}`, { y: -50, opacity: 0, duration: 1, force3D: true }, `step-${i}`)
+                        .to(`.panel-right-${i}`, { y: 50, opacity: 0, duration: 1, force3D: true }, `step-${i}`)
+                        .to(images[i], { opacity: 0, scale: 1.1, rotate: 5, duration: 1, force3D: true }, `step-${i}`)
 
                     // Transition In
-                    tl.fromTo(`.panel-left-${i + 1}`, { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, `step-${i}+=0.1`)
-                        .fromTo(`.panel-right-${i + 1}`, { y: -50, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, `step-${i}+=0.1`)
-                        .fromTo(images[i + 1], { opacity: 0, scale: 0.9, rotate: -5 }, { opacity: 1, scale: 1, rotate: 0, duration: 1 }, `step-${i}+=0.1`);
+                    tl.fromTo(`.panel-left-${i + 1}`, { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1, force3D: true }, `step-${i}+=0.1`)
+                        .fromTo(`.panel-right-${i + 1}`, { y: -50, opacity: 0 }, { y: 0, opacity: 1, duration: 1, force3D: true }, `step-${i}+=0.1`)
+                        .fromTo(images[i + 1], { opacity: 0, scale: 0.9, rotate: -5 }, { opacity: 1, scale: 1, rotate: 0, duration: 1, force3D: true }, `step-${i}+=0.1`);
                 }
             });
 
@@ -100,7 +102,7 @@ const FoodScrollShowcase = () => {
                 {/* CENTER IMAGE STAGE */}
                 <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[220px] h-[220px] md:w-[450px] md:h-[450px] z-20">
                     {foods.map((food, i) => (
-                        <div key={food.id} className="food-img-container absolute inset-0">
+                        <div key={food.id} className="food-img-container absolute inset-0 will-change-transform will-change-opacity">
                             <div className="relative w-full h-full p-2 md:p-4">
                                 <div className="absolute inset-0 bg-primary/10 rounded-full blur-2xl transform scale-110"></div>
                                 <img
@@ -121,7 +123,7 @@ const FoodScrollShowcase = () => {
                         {foods.map((food, i) => (
                             <div
                                 key={food.id}
-                                className={`panel-left-${i} absolute inset-0 flex flex-col justify-end md:justify-center items-center md:items-start text-center md:text-left pb-32 md:pb-0 ${i === 0 ? 'opacity-100' : 'opacity-0'}`}
+                                className={`panel-left-${i} absolute inset-0 flex flex-col justify-end md:justify-center items-center md:items-start text-center md:text-left pb-32 md:pb-0 will-change-transform will-change-opacity ${i === 0 ? 'opacity-100' : 'opacity-0'}`}
                             >
                                 <span className="text-primary font-bold uppercase tracking-[0.2em] text-[10px] md:text-sm mb-2 md:mb-4">
                                     Signature Item 0{i + 1}
@@ -141,7 +143,7 @@ const FoodScrollShowcase = () => {
                         {foods.map((food, i) => (
                             <div
                                 key={food.id}
-                                className={`panel-right-${i} absolute inset-0 md:w-3/4 flex flex-col justify-start md:justify-center items-center md:items-end text-center md:text-right pt-32 md:pt-0 ${i === 0 ? 'opacity-100' : 'opacity-0'}`}
+                                className={`panel-right-${i} absolute inset-0 md:w-3/4 flex flex-col justify-start md:justify-center items-center md:items-end text-center md:text-right pt-32 md:pt-0 will-change-transform will-change-opacity ${i === 0 ? 'opacity-100' : 'opacity-0'}`}
                             >
                                 <div className="space-y-4 md:space-y-6 px-4 md:px-0">
                                     <p className="text-xs md:text-lg lg:text-xl text-gray-500 dark:text-gray-400 leading-relaxed max-w-xs md:max-w-md ml-auto font-light">

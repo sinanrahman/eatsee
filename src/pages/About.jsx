@@ -46,7 +46,7 @@ const About = () => {
                         viewport={{ once: true }}
                         className="relative"
                     >
-                        <img src="/image/logo.jpeg" alt="Our Story" className="rounded-[4rem] shadow-2xl relative z-10 w-full" />
+                        <img src="/image/logo.png" alt="Our Story" className="rounded-[4rem] shadow-2xl relative z-10 w-full" />
                         <div className="absolute -top-10 -left-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl"></div>
                     </motion.div>
                     <motion.div

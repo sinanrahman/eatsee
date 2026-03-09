@@ -3,14 +3,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Search, Maximize2 } from 'lucide-react';
 
 const galleryItems = [
-    { id: 1, type: "Production", image: "/image/logo.jpeg", title: "Traditional Kitchen" },
+    { id: 1, type: "Production", image: "/image/logo.png", title: "Traditional Kitchen" },
     { id: 2, type: "Food", image: "/image/pathiri.jpeg", title: "Freshly Made Pathiri" },
     { id: 3, type: "Food", image: "/image/idiyappam.jpeg", title: "Steaming Idiyappam" },
     { id: 4, type: "Food", image: "/image/vellappam.jpeg", title: "Crispy Vellappam" },
     { id: 5, type: "Food", image: "/image/chappathy.jpeg", title: "Soft Chappathi" },
-    { id: 6, type: "Production", image: "/image/logo.jpeg", title: "Quality Check" },
-    { id: 7, type: "Delivery", image: "/image/logo.jpeg", title: "Daily Dispatch" },
-    { id: 8, type: "Food", image: "/image/logo.jpeg", title: "Traditional Snacks" },
+    { id: 6, type: "Production", image: "/image/logo.png", title: "Quality Check" },
+    { id: 7, type: "Delivery", image: "/image/logo.png", title: "Daily Dispatch" },
+    { id: 8, type: "Food", image: "/image/logo.png", title: "Traditional Snacks" },
 ];
 
 const categories = ["All", "Food", "Production", "Delivery"];
@@ -38,8 +38,8 @@ const Gallery = () => {
                                 key={cat}
                                 onClick={() => setFilter(cat)}
                                 className={`px-8 py-2 rounded-full font-bold transition-all ${filter === cat
-                                        ? 'bg-primary text-white scale-105'
-                                        : 'bg-zinc-100 dark:bg-zinc-900 text-gray-500 hover:text-primary'
+                                    ? 'bg-primary text-white scale-105'
+                                    : 'bg-zinc-100 dark:bg-zinc-900 text-gray-500 hover:text-primary'
                                     }`}
                             >
                                 {cat}

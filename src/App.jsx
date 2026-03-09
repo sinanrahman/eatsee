@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import Lenis from '@studio-freight/lenis'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger);
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -23,15 +27,18 @@ function App() {
             smoothWheel: true,
         });
 
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
+        lenis.on('scroll', ScrollTrigger.update);
 
-        requestAnimationFrame(raf);
+        const updateLenis = (time) => {
+            lenis.raf(time * 1000);
+        };
+
+        gsap.ticker.add(updateLenis);
+        gsap.ticker.lagSmoothing(0);
 
         return () => {
             lenis.destroy();
+            gsap.ticker.remove(updateLenis);
         }
     }, []);
 

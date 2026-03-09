@@ -49,7 +49,7 @@ const Services = () => {
                     </div>
                     <div className="relative group">
                         <div className="rounded-[4rem] overflow-hidden shadow-2xl scale-95 group-hover:scale-100 transition-transform duration-700">
-                            <img src="/image/logo.jpeg" alt="Services" className="w-full aspect-square object-cover" />
+                            <img src="/image/logo.png" alt="Services" className="w-full aspect-square object-cover" />
                         </div>
                         {/* Overlay badge */}
                         <div className="absolute -bottom-6 left-6 bg-white dark:bg-zinc-900 p-6 rounded-3xl shadow-xl flex items-center gap-4 border border-gray-100 dark:border-zinc-800">

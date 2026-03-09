@@ -26,7 +26,7 @@ const Home = () => {
                 <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     <div className="relative">
                         <div className="rounded-[3rem] overflow-hidden shadow-2xl">
-                            <img src="/image/logo.jpeg" alt="Eatsee Heritage" className="w-full aspect-square object-cover" />
+                            <img src="/image/logo.png" alt="Eatsee Heritage" className="w-full aspect-square object-cover" />
                         </div>
                         <div className="absolute -bottom-10 -right-10 bg-primary p-8 rounded-3xl shadow-xl hidden md:block">
                             <p className="text-4xl font-black text-white">30+</p>

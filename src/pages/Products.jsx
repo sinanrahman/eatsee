@@ -7,9 +7,9 @@ const allProducts = [
     { id: 2, name: "Idiyappam", category: "Traditional", image: "/image/idiyappam.jpeg", description: "Steamed rice noodles, light and digestible for a healthy breakfast." },
     { id: 3, name: "Vellappam", category: "Traditional", image: "/image/vellappam.jpeg", description: "Fluffy fermented rice pancakes with a slightly sweet and tangy taste." },
     { id: 4, name: "Chappathi", category: "Daily Bread", image: "/image/chappathy.jpeg", description: "Handmade whole wheat chappathi, soft and stays fresh for hours." },
-    { id: 5, name: "Rice Snacks", category: "Snacks", image: "/image/logo.jpeg", description: "Traditional crispy rice snacks flavored with ginger and sesame." },
-    { id: 6, name: "Wheat Snacks", category: "Snacks", image: "/image/logo.jpeg", description: "Healthy wheat-based snacks for tea time." },
-    { id: 7, name: "Bulk Batter", category: "Special", image: "/image/logo.jpeg", description: "Freshly ground batter for Idli and Dosa preparations." },
+    { id: 5, name: "Rice Snacks", category: "Snacks", image: "/image/logo.png", description: "Traditional crispy rice snacks flavored with ginger and sesame." },
+    { id: 6, name: "Wheat Snacks", category: "Snacks", image: "/image/logo.png", description: "Healthy wheat-based snacks for tea time." },
+    { id: 7, name: "Bulk Batter", category: "Special", image: "/image/logo.png", description: "Freshly ground batter for Idli and Dosa preparations." },
 ];
 
 const categories = ["All", "Traditional", "Daily Bread", "Snacks", "Special"];
@@ -37,8 +37,8 @@ const Products = () => {
                                 key={cat}
                                 onClick={() => setActiveCategory(cat)}
                                 className={`px-6 py-2 rounded-full font-bold text-sm transition-all ${activeCategory === cat
-                                        ? 'bg-primary text-white shadow-lg'
-                                        : 'bg-white dark:bg-zinc-900 text-gray-600 dark:text-gray-400 border border-gray-100 dark:border-zinc-800'
+                                    ? 'bg-primary text-white shadow-lg'
+                                    : 'bg-white dark:bg-zinc-900 text-gray-600 dark:text-gray-400 border border-gray-100 dark:border-zinc-800'
                                     }`}
                             >
                                 {cat}
