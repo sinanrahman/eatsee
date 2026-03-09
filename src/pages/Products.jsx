@@ -6,7 +6,7 @@ const allProducts = [
     { id: 1, name: "Pathiri", category: "Traditional", image: "/image/pathiri.jpeg", description: "Paper-thin rice pancakes, perfect with chicken or mutton curry." },
     { id: 2, name: "Idiyappam", category: "Traditional", image: "/image/idiyappam.jpeg", description: "Steamed rice noodles, light and digestible for a healthy breakfast." },
     { id: 3, name: "Vellappam", category: "Traditional", image: "/image/vellappam.jpeg", description: "Fluffy fermented rice pancakes with a slightly sweet and tangy taste." },
-    { id: 4, name: "Chappathi", category: "Daily Bread", image: "/image/chappathy.jpeg", description: "Handmade whole wheat chappathi, soft and stays fresh for hours." },
+    { id: 4, name: "Chappathi", category: "Daily Bread", image: "/image/chappathy.jpg", description: "Handmade whole wheat chappathi, soft and stays fresh for hours." },
     { id: 5, name: "Rice Snacks", category: "Snacks", image: "/image/logo.png", description: "Traditional crispy rice snacks flavored with ginger and sesame." },
     { id: 6, name: "Wheat Snacks", category: "Snacks", image: "/image/logo.png", description: "Healthy wheat-based snacks for tea time." },
     { id: 7, name: "Bulk Batter", category: "Special", image: "/image/logo.png", description: "Freshly ground batter for Idli and Dosa preparations." },

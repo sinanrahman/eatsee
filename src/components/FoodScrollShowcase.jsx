@@ -38,7 +38,7 @@ const foods = [
         name: "Chappathi",
         tagline: "Whole Wheat Goodness",
         description: "Soft, puffed Chappathis made from premium whole wheat. We ensure they stay fresh and soft for hours, providing a nutritious and homemade dining experience.",
-        image: "/image/chappathy.jpeg",
+        image: "/image/chappathy.jpg",
         details: ["Premium Wheat", "Zero Oil Option", "Long-lasting Softness"],
         themeColor: "#15803D"
     }
@@ -52,10 +52,22 @@ const FoodScrollShowcase = () => {
         let ctx = gsap.context(() => {
             const images = gsap.utils.toArray('.food-img-container');
 
-            // Fix the images in the center
+            // Fix the images in the center with 3D perspective
             images.forEach((img, i) => {
-                if (i > 0) gsap.set(img, { opacity: 0, scale: 0.8, rotate: -10, force3D: true });
-                else gsap.set(img, { force3D: true });
+                if (i > 0) gsap.set(img, {
+                    opacity: 0,
+                    scale: 0.8,
+                    rotateY: -45,
+                    rotateX: 10,
+                    z: -500,
+                    force3D: true
+                });
+                else gsap.set(img, {
+                    rotateY: 0,
+                    rotateX: 0,
+                    z: 0,
+                    force3D: true
+                });
             });
 
             const tl = gsap.timeline({
@@ -73,15 +85,27 @@ const FoodScrollShowcase = () => {
 
             foods.forEach((_, i) => {
                 if (i < foods.length - 1) {
-                    // Transition Out
-                    tl.to(`.panel-left-${i}`, { y: -50, opacity: 0, duration: 1, force3D: true }, `step-${i}`)
-                        .to(`.panel-right-${i}`, { y: 50, opacity: 0, duration: 1, force3D: true }, `step-${i}`)
-                        .to(images[i], { opacity: 0, scale: 1.1, rotate: 5, duration: 1, force3D: true }, `step-${i}`)
+                    // Transition Out with 3D rotate
+                    tl.to(`.panel-left-${i}`, { x: -100, opacity: 0, duration: 1, force3D: true }, `step-${i}`)
+                        .to(`.panel-right-${i}`, { x: 100, opacity: 0, duration: 1, force3D: true }, `step-${i}`)
+                        .to(images[i], {
+                            opacity: 0,
+                            scale: 1.2,
+                            rotateY: 45,
+                            rotateX: -10,
+                            z: 200,
+                            duration: 1,
+                            force3D: true
+                        }, `step-${i}`)
 
-                    // Transition In
-                    tl.fromTo(`.panel-left-${i + 1}`, { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1, force3D: true }, `step-${i}+=0.1`)
-                        .fromTo(`.panel-right-${i + 1}`, { y: -50, opacity: 0 }, { y: 0, opacity: 1, duration: 1, force3D: true }, `step-${i}+=0.1`)
-                        .fromTo(images[i + 1], { opacity: 0, scale: 0.9, rotate: -5 }, { opacity: 1, scale: 1, rotate: 0, duration: 1, force3D: true }, `step-${i}+=0.1`);
+                    // Transition In with 3D rotate
+                    tl.fromTo(`.panel-left-${i + 1}`, { x: 100, opacity: 0 }, { x: 0, opacity: 1, duration: 1, force3D: true }, `step-${i}+=0.1`)
+                        .fromTo(`.panel-right-${i + 1}`, { x: -100, opacity: 0 }, { x: 0, opacity: 1, duration: 1, force3D: true }, `step-${i}+=0.1`)
+                        .fromTo(images[i + 1],
+                            { opacity: 0, scale: 0.8, rotateY: -45, rotateX: 10, z: -200 },
+                            { opacity: 1, scale: 1, rotateY: 0, rotateX: 0, z: 0, duration: 1, force3D: true },
+                            `step-${i}+=0.1`
+                        );
                 }
             });
 
@@ -91,7 +115,7 @@ const FoodScrollShowcase = () => {
     }, []);
 
     return (
-        <div ref={triggerRef} className="relative min-h-screen bg-white dark:bg-black overflow-hidden select-none">
+        <div ref={triggerRef} className="relative min-h-screen bg-white dark:bg-black overflow-hidden select-none" style={{ perspective: "2000px" }}>
             {/* Background Decorative Element */}
             <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] dark:opacity-[0.05] pointer-events-none">
                 <h2 className="text-[30vw] font-black uppercase tracking-tighter">EATSEE</h2>

@@ -7,7 +7,7 @@ const galleryItems = [
     { id: 2, type: "Food", image: "/image/pathiri.jpeg", title: "Freshly Made Pathiri" },
     { id: 3, type: "Food", image: "/image/idiyappam.jpeg", title: "Steaming Idiyappam" },
     { id: 4, type: "Food", image: "/image/vellappam.jpeg", title: "Crispy Vellappam" },
-    { id: 5, type: "Food", image: "/image/chappathy.jpeg", title: "Soft Chappathi" },
+    { id: 5, type: "Food", image: "/image/chappathy.jpg", title: "Soft Chappathi" },
     { id: 6, type: "Production", image: "/image/logo.png", title: "Quality Check" },
     { id: 7, type: "Delivery", image: "/image/logo.png", title: "Daily Dispatch" },
     { id: 8, type: "Food", image: "/image/logo.png", title: "Traditional Snacks" },
