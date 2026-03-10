@@ -3,10 +3,20 @@
 @tailwind utilities;
 
 @layer base {
-    html {}
+    html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    html,
+    body {
+        width: 100%;
+        min-height: 100%;
+    }
 
     body {
         @apply font-outfit transition-colors duration-300;
+        text-rendering: optimizeLegibility;
     }
 
     body.dark {
@@ -70,12 +80,11 @@
 }
 
 .food-img-container img {
-    transform: perspective(1000px) rotateX(10deg) rotateY(-10deg);
-    transition: transform 0.5s ease-out;
+    @apply transition-transform duration-500;
 }
 
 .food-img-container:hover img {
-    transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+    @apply scale-105;
 }
 
 .glass-morphism {

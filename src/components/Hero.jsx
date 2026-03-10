@@ -1,161 +1,104 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, MoveUpRight } from 'lucide-react';
+import { ChevronDown, ArrowRight, MousePointer2 } from 'lucide-react';
 import gsap from 'gsap';
-import { motion, AnimatePresence } from 'framer-motion';
-
-const floatingImages = [
-    { url: "/image/pathiri.jpeg", x: -25, y: -20, z: 100, rotate: -15, size: 300 },
-    { url: "/image/idiyappam.jpeg", x: 25, y: 15, z: 150, rotate: 10, size: 250 },
-    { url: "/image/vellappam.jpeg", x: -20, y: 25, z: 80, rotate: 5, size: 280 },
-    { url: "/image/chappathy.jpg", x: 30, y: -25, z: 120, rotate: -10, size: 220 },
-];
+import { motion } from 'framer-motion';
 
 const Hero = () => {
     const containerRef = useRef(null);
-    const stageRef = useRef(null);
 
     useLayoutEffect(() => {
         let ctx = gsap.context(() => {
-            // Initial Entrance
-            gsap.from(".hero-reveal", {
+            const tl = gsap.timeline();
+
+            tl.from(".hero-reveal", {
                 y: 100,
                 opacity: 0,
-                duration: 1.5,
-                stagger: 0.1,
-                ease: "power4.out"
-            });
-
-            gsap.from(".floating-item", {
-                scale: 0,
-                opacity: 0,
-                duration: 2,
-                stagger: 0.2,
-                ease: "expo.out",
-                delay: 0.5
-            });
-
-            // Mouse Move Parallax
-            const handleMouseMove = (e) => {
-                const { clientX, clientY } = e;
-                const xPos = (clientX / window.innerWidth - 0.5) * 2;
-                const yPos = (clientY / window.innerHeight - 0.5) * 2;
-
-                gsap.to(stageRef.current, {
-                    rotateY: xPos * 15,
-                    rotateX: -yPos * 15,
-                    duration: 1.2,
-                    ease: "power2.out"
-                });
-
-                gsap.to(".floating-item", {
-                    x: (i) => xPos * (50 + i * 20),
-                    y: (i) => yPos * (50 + i * 20),
+                duration: 1.2,
+                stagger: 0.15,
+                ease: "power4.out",
+                force3D: true
+            })
+                .from(".hero-sep", {
+                    width: 0,
+                    duration: 1,
+                    ease: "power2.inOut",
+                    force3D: true
+                }, "-=0.8")
+                .from(".hero-img-box", {
+                    scale: 0.9,
+                    opacity: 0,
                     duration: 1.5,
-                    ease: "power3.out",
-                    stagger: 0.02
-                });
-            };
-
-            window.addEventListener('mousemove', handleMouseMove);
-            return () => window.removeEventListener('mousemove', handleMouseMove);
+                    ease: "expo.out",
+                    force3D: true
+                }, "-=1");
         }, containerRef);
         return () => ctx.revert();
     }, []);
 
     return (
-        <section ref={containerRef} className="relative min-h-[110vh] flex flex-col justify-center items-center bg-black pt-20 overflow-hidden px-6 select-none">
-            {/* 3D STAGE */}
-            <div
-                ref={stageRef}
-                className="absolute inset-0 z-0 pointer-events-none"
-                style={{ perspective: "1500px", transformStyle: "preserve-3d" }}
-            >
-                {floatingImages.map((img, i) => (
-                    <div
-                        key={i}
-                        className="floating-item absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-                        style={{
-                            left: `${50 + img.x}%`,
-                            top: `${50 + img.y}%`,
-                            transform: `translateZ(${img.z}px) rotate(${img.rotate}deg)`,
-                            width: `${img.size}px`,
-                            height: `${img.size}px`
-                        }}
-                    >
-                        <div className="relative w-full h-full group">
-                            <div className="absolute inset-0 bg-primary/20 rounded-full blur-[60px] group-hover:bg-primary/40 transition-colors duration-700"></div>
-                            <img
-                                src={img.url}
-                                alt="Food Item"
-                                className="w-full h-full object-cover rounded-full border-[8px] border-zinc-900 shadow-2xl transition-transform duration-700 group-hover:scale-110"
-                            />
-                        </div>
-                    </div>
-                ))}
-            </div>
+        <section ref={containerRef} className="relative min-h-screen flex flex-col justify-center items-center bg-white dark:bg-black pt-20 overflow-hidden px-6">
+            {/* Decorative center light */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vh] bg-primary/5 dark:bg-primary/10 rounded-full blur-[120px] -z-0 pointer-events-none"></div>
 
-            {/* CONTENT LAYER */}
-            <div className="max-w-7xl mx-auto w-full text-center relative z-10 space-y-12">
-                <div className="flex flex-col items-center space-y-6">
+            <div className="max-w-7xl mx-auto w-full text-center relative z-10 space-y-10">
+                <div className="flex flex-col items-center space-y-4">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="px-5 py-2 border border-zinc-800 bg-zinc-900/50 backdrop-blur-md rounded-full text-primary font-mono text-[10px] tracking-[0.4em] uppercase hero-reveal"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="px-6 py-2 border border-primary/20 bg-primary/5 rounded-full text-primary font-bold uppercase tracking-[0.2em] text-xs hero-reveal"
                     >
-                        Authentic Malabar Heritage // Est. 1994
+                        Nadhira's Authentic Recipes
                     </motion.div>
 
-                    <h1 className="text-8xl md:text-[18rem] lg:text-[24rem] font-playfair font-black text-white leading-[0.7] tracking-tighter relative">
-                        <span className="hero-reveal block mix-blend-difference">EATSEE.</span>
-                        <div className="flex items-center justify-center gap-8 hero-reveal mt-4 md:-mt-8">
-                            <span className="text-primary italic font-serif text-5xl md:text-9xl drop-shadow-[0_0_30px_rgba(21,128,61,0.5)]">Foods</span>
+                    <h1 className="text-6xl md:text-[140px] font-playfair font-black text-gray-900 dark:text-white leading-[0.85] tracking-tighter">
+                        <span className="hero-reveal block">Eatsee</span>
+                        <div className="flex items-center justify-center gap-4 hero-reveal">
+                            <span className="hero-sep h-[3px] w-20 md:w-64 bg-primary hidden md:block"></span>
+                            <span className="text-primary italic font-serif">Foods</span>
+                            <span className="hero-sep h-[3px] w-20 md:w-64 bg-primary hidden md:block"></span>
                         </div>
                     </h1>
                 </div>
 
-                <div className="max-w-xl mx-auto hero-reveal">
-                    <p className="text-lg md:text-xl text-zinc-400 font-mono tracking-tight leading-relaxed uppercase opacity-60">
-                        Crafting the future of traditional taste through immersive culinary excellence.
+                <div className="max-w-2xl mx-auto hero-reveal">
+                    <p className="text-xl md:text-2xl text-gray-500 dark:text-zinc-400 font-light leading-relaxed">
+                        Continuing the legacy of homemade taste. Authentic traditional flavors, crafted with hygiene and love in Omassery.
                     </p>
                 </div>
 
-                <div className="hero-reveal flex flex-col md:flex-row items-center justify-center gap-6 pt-10">
-                    <Link
-                        to="/products"
-                        className="group px-14 py-6 bg-white text-black font-bold rounded-full transition-all hover:scale-105 active:scale-95 shadow-[0_0_50px_rgba(255,255,255,0.2)] flex items-center gap-4"
-                    >
-                        EXPLORE_COLLECTION <MoveUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                <div className="hero-reveal flex flex-col md:flex-row items-center justify-center gap-6 pt-6">
+                    <Link to="/products" className="group relative px-12 py-5 bg-primary text-white font-bold rounded-2xl overflow-hidden transition-all shadow-2xl hover:shadow-primary/40">
+                        <span className="relative z-10 flex items-center gap-3">
+                            Explore Our Menu <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+                        </span>
+                        <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
                     </Link>
 
-                    <Link
-                        to="/order"
-                        className="px-14 py-6 border border-zinc-800 text-zinc-400 font-mono text-xs tracking-[0.3em] rounded-full hover:bg-zinc-900 hover:text-white transition-all"
-                    >
-                        [ VIEW_SERVICES ]
+                    <Link to="/order" className="px-12 py-5 border-2 border-gray-200 dark:border-zinc-800 text-gray-900 dark:text-white font-bold rounded-2xl hover:bg-gray-50 dark:hover:bg-zinc-900 transition-all">
+                        Order Express Delivery
                     </Link>
+                </div>
+
+                {/* Floating Badges Visualization */}
+                <div className="hero-img-box absolute -bottom-40 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] opacity-20 pointer-events-none">
+                    <img src="/image/logo.png" alt="Background decoration" className="w-full h-full object-contain blur-md" />
                 </div>
             </div>
 
-            {/* BOTTOM DECORATION */}
-            <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center gap-6 hero-reveal">
-                <div className="font-mono text-[9px] text-zinc-600 uppercase tracking-[0.5em] animate-pulse">
-                    Initiating Sensory Experience
+            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 hero-reveal">
+                <div className="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-widest">
+                    <MousePointer2 size={14} className="animate-pulse" /> Scroll to Taste
                 </div>
-                <div className="w-[1px] h-32 bg-gradient-to-b from-primary via-zinc-800 to-transparent"></div>
+                <div className="w-[2px] h-12 bg-gradient-to-b from-primary to-transparent"></div>
             </div>
 
-            {/* SIDE METADATA */}
-            <div className="absolute top-1/2 left-12 -translate-y-1/2 -rotate-90 origin-left hidden xl:flex items-center gap-8 text-[9px] font-mono uppercase tracking-[0.4em] text-zinc-700">
-                <span className="text-primary">01.</span> PRESERVING_TRADITION
-                <div className="w-12 h-[1px] bg-zinc-800"></div>
-                HOMEMADE_QUALITY
+            {/* Side info labels */}
+            <div className="absolute top-1/2 left-10 -translate-y-1/2 -rotate-90 origin-left hidden lg:block text-[10px] font-black uppercase tracking-[1em] text-gray-300">
+                Authentic • Homemade • Organic
             </div>
-
-            <div className="absolute top-1/2 right-12 -translate-y-1/2 rotate-90 origin-right hidden xl:flex items-center gap-8 text-[9px] font-mono uppercase tracking-[0.4em] text-zinc-700">
-                <span className="text-primary">02.</span> OMASSARY_FACILITY
-                <div className="w-12 h-[1px] bg-zinc-800"></div>
-                READY_FOR_DISPATCH
+            <div className="absolute top-1/2 right-10 -translate-y-1/2 rotate-90 origin-right hidden lg:block text-[10px] font-black uppercase tracking-[1em] text-gray-300">
+                Omassery • Kozhikode • Kerala
             </div>
         </section>
     );
