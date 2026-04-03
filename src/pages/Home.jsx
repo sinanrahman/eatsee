@@ -2,10 +2,12 @@ import React from 'react';
 import Hero from '../components/Hero';
 import FoodScrollShowcase from '../components/FoodScrollShowcase';
 import ProductCard from '../components/ProductCard';
-import Testimonials from '../components/Testimonials';
+import ReviewSection from '../components/ReviewSection';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Truck, ShieldCheck, Heart, ArrowRight } from 'lucide-react';
+
+const WHATSAPP_URL = `https://wa.me/919562496164?text=${encodeURIComponent("Hi Eatsee Foods, I would like to place an order.")}`;
 
 const homeProducts = [
     { id: 1, name: "Pathiri", image: "/image/pathiri.jpeg", description: "Soft and thin rice pancakes." },
@@ -59,7 +61,7 @@ const Home = () => {
                             ))}
                         </div>
                         <div className="pt-8">
-                            <Link to="/about" className="group px-8 py-3 dark:border-zinc-800 border-zinc-200 border-2 rounded-full font-mono text-xs tracking-widest hover:bg-zinc-900 transition-all text-white">
+                            <Link to="/about" className="group px-8 py-3 dark:border-zinc-800 border-zinc-200 border-2 rounded-full font-mono text-xs tracking-widest hover:bg-zinc-900 hover:text-white dark:hover:bg-zinc-800 transition-all dark:text-white text-gray-900">
                                 EXPLORE_FULL_STORY
                             </Link>
                         </div>
@@ -88,7 +90,8 @@ const Home = () => {
                 </div>
             </section>
 
-            <Testimonials />
+            {/* Reviews Section */}
+            <ReviewSection />
 
             {/* Delivery Coverage Info */}
             <section className="section-padding bg-primary/10 dark:bg-zinc-950">
@@ -107,9 +110,14 @@ const Home = () => {
                                 Supplying fresh traditional food to houses, local shops, and retailers in and around Omassery, Kozhikode.
                             </p>
                             <div className="flex flex-wrap gap-4">
-                                <Link to="/order" className="px-10 py-4 bg-white text-primary font-bold rounded-2xl hover:bg-gray-100 transition-colors shadow-xl">
-                                    Order Now
-                                </Link>
+                                <a
+                                    href={WHATSAPP_URL}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="px-10 py-4 bg-white text-primary font-bold rounded-2xl hover:bg-gray-100 transition-colors shadow-xl flex items-center gap-2"
+                                >
+                                    Order on WhatsApp
+                                </a>
                                 <Link to="/contact" className="px-10 py-4 border-2 border-white/30 text-white font-bold rounded-2xl hover:bg-white/10 transition-colors">
                                     Contact Support
                                 </Link>

@@ -1,8 +1,10 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronDown, ArrowRight, MousePointer2 } from 'lucide-react';
+import { ArrowRight, MousePointer2, MessageCircle } from 'lucide-react';
 import gsap from 'gsap';
 import { motion } from 'framer-motion';
+
+const WHATSAPP_URL = `https://wa.me/919562496164?text=${encodeURIComponent("Hi Eatsee Foods, I would like to place an order.")}`;
 
 const Hero = () => {
     const containerRef = useRef(null);
@@ -38,7 +40,6 @@ const Hero = () => {
 
     return (
         <section ref={containerRef} className="relative min-h-screen flex flex-col justify-center items-center bg-white dark:bg-black pt-20 overflow-hidden px-6">
-            {/* Decorative center light */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vh] bg-primary/5 dark:bg-primary/10 rounded-full blur-[120px] -z-0 pointer-events-none"></div>
 
             <div className="max-w-7xl mx-auto w-full text-center relative z-10 space-y-10">
@@ -75,12 +76,16 @@ const Hero = () => {
                         <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
                     </Link>
 
-                    <Link to="/order" className="px-12 py-5 border-2 border-gray-200 dark:border-zinc-800 text-gray-900 dark:text-white font-bold rounded-2xl hover:bg-gray-50 dark:hover:bg-zinc-900 transition-all">
-                        Order Express Delivery
-                    </Link>
+                    <a
+                        href={WHATSAPP_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-3 px-12 py-5 bg-[#25D366] text-white font-bold rounded-2xl hover:bg-[#20b859] transition-all shadow-lg"
+                    >
+                        <MessageCircle size={20} /> Order on WhatsApp
+                    </a>
                 </div>
 
-                {/* Floating Badges Visualization */}
                 <div className="hero-img-box absolute -bottom-40 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] opacity-20 pointer-events-none">
                     <img src="/image/logo.png" alt="Background decoration" className="w-full h-full object-contain blur-md" />
                 </div>
@@ -93,7 +98,6 @@ const Hero = () => {
                 <div className="w-[2px] h-12 bg-gradient-to-b from-primary to-transparent"></div>
             </div>
 
-            {/* Side info labels */}
             <div className="absolute top-1/2 left-10 -translate-y-1/2 -rotate-90 origin-left hidden lg:block text-[10px] font-black uppercase tracking-[1em] text-gray-300">
                 Authentic • Homemade • Organic
             </div>

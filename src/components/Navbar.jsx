@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronRight } from 'lucide-react';
+import { Menu, X, ChevronRight, MessageCircle } from 'lucide-react';
 import DarkModeToggle from './DarkModeToggle';
 import { motion, AnimatePresence } from 'framer-motion';
+
+const WHATSAPP_URL = `https://wa.me/919562496164?text=${encodeURIComponent("Hi Eatsee Foods, I would like to place an order.")}`;
 
 const navLinks = [
     { name: 'Home', path: '/' },
@@ -20,9 +22,7 @@ const Navbar = () => {
     const location = useLocation();
 
     useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 20);
-        };
+        const handleScroll = () => setScrolled(window.scrollY > 20);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
@@ -32,19 +32,14 @@ const Navbar = () => {
     }, [location]);
 
     return (
-        <nav
-            className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled
-                ? 'py-3 glass-morphism shadow-lg'
-                : 'py-5 bg-transparent'
-                }`}
-        >
+        <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? 'py-3 glass-morphism shadow-lg' : 'py-5 bg-transparent'}`}>
             <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
                 {/* Logo */}
                 <Link to="/" className="flex items-center gap-2 group">
                     <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary">
                         <img src="/image/logo.png" alt="Eatsee Foods Logo" className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
                     </div>
-                    <span className={`text-xl font-bold tracking-tight ${scrolled ? 'text-gray-900 dark:text-white' : 'text-gray-900 dark:text-white'}`}>
+                    <span className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
                         EATSEE <span className="text-primary">FOODS</span>
                     </span>
                 </Link>
@@ -56,10 +51,7 @@ const Navbar = () => {
                             <Link
                                 key={link.path}
                                 to={link.path}
-                                className={`text-[10px] uppercase font-mono tracking-widest transition-colors hover:text-primary ${location.pathname === link.path
-                                    ? 'text-primary'
-                                    : 'text-gray-600 dark:text-gray-400'
-                                    }`}
+                                className={`text-[10px] uppercase font-mono tracking-widest transition-colors hover:text-primary ${location.pathname === link.path ? 'text-primary' : 'text-gray-600 dark:text-gray-400'}`}
                             >
                                 {link.name}
                             </Link>
@@ -68,28 +60,27 @@ const Navbar = () => {
                     <div className="h-6 w-[1px] bg-gray-300 dark:bg-gray-700 mx-2"></div>
                     <div className="flex items-center gap-4">
                         <DarkModeToggle />
-                        <Link
-                            to="/order"
-                            className="bg-white text-black px-6 py-2 rounded-full text-[10px] font-mono font-bold tracking-widest hover:bg-gray-200 transition-all border border-zinc-200 dark:border-zinc-800"
+                        <a
+                            href={WHATSAPP_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="bg-[#25D366] text-white px-6 py-2 rounded-full text-[10px] font-mono font-bold tracking-widest hover:bg-[#20b859] transition-all flex items-center gap-2"
                         >
-                            ORDER_NOW
-                        </Link>
+                            <MessageCircle size={14} /> ORDER_NOW
+                        </a>
                     </div>
                 </div>
 
                 {/* Mobile Toggle */}
                 <div className="flex md:hidden items-center gap-4">
                     <DarkModeToggle />
-                    <button
-                        onClick={() => setIsOpen(!isOpen)}
-                        className="p-2 text-gray-700 dark:text-gray-200"
-                    >
+                    <button onClick={() => setIsOpen(!isOpen)} className="p-2 text-gray-700 dark:text-gray-200">
                         {isOpen ? <X size={28} /> : <Menu size={28} />}
                     </button>
                 </div>
             </div>
 
-            {/* Mobile Menu Overlay */}
+            {/* Mobile Menu */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
@@ -117,12 +108,11 @@ const Navbar = () => {
                                     key={link.path}
                                     initial={{ opacity: 0, x: -20 }}
                                     animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: index * 0.1 }}
+                                    transition={{ delay: index * 0.07 }}
                                 >
                                     <Link
                                         to={link.path}
-                                        className={`text-3xl font-bold flex items-center justify-between group ${location.pathname === link.path ? 'text-primary' : 'text-gray-900 dark:text-white'
-                                            }`}
+                                        className={`text-3xl font-bold flex items-center justify-between group ${location.pathname === link.path ? 'text-primary' : 'text-gray-900 dark:text-white'}`}
                                     >
                                         {link.name}
                                         <ChevronRight className="group-hover:translate-x-2 transition-transform" />
@@ -132,19 +122,21 @@ const Navbar = () => {
                             <motion.div
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: navLinks.length * 0.1 }}
+                                transition={{ delay: navLinks.length * 0.07 }}
                                 className="mt-8"
                             >
-                                <Link
-                                    to="/order"
-                                    className="w-full block text-center bg-primary text-white py-4 rounded-xl text-xl font-bold hover:bg-primary-dark transition-all"
+                                <a
+                                    href={WHATSAPP_URL}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-full flex items-center justify-center gap-3 bg-[#25D366] text-white py-4 rounded-xl text-xl font-bold hover:bg-[#20b859] transition-all"
                                 >
-                                    Order Now
-                                </Link>
+                                    <MessageCircle size={24} /> Order on WhatsApp
+                                </a>
                             </motion.div>
                         </div>
 
-                        <div className="mt-auto items-center justify-center flex gap-6 text-gray-500">
+                        <div className="mt-auto flex items-center justify-center gap-6 text-gray-500">
                             <span className="text-sm">9562496164</span>
                             <span className="text-sm">Omassery, Kerala</span>
                         </div>
